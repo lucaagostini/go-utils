@@ -1,4 +1,4 @@
-module go-utils
+module github.com/lucaagostini/go-utils
 
 go 1.19
 
