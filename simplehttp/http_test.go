@@ -20,21 +20,21 @@ func TestGet(t *testing.T) {
 	tcs := []struct {
 		name         string
 		path         string
-		clientParams HttpParams
+		clientParams HttpRequestParams
 		serverBody   string
 		expectedRes  *MyHttpResponse
 	}{
 		{
 			name:         "ok with custom path",
 			path:         "/my-path",
-			clientParams: HttpParams{},
+			clientParams: HttpRequestParams{},
 			serverBody:   "{\"foo\": \"bar\"}",
 			expectedRes:  &MyHttpResponse{Foo: "bar"},
 		},
 		{
 			name:         "ok with query param",
 			path:         "/my-query-return-id",
-			clientParams: HttpParams{QueryParams: map[string]string{"id": "my-id"}},
+			clientParams: HttpRequestParams{QueryParams: map[string]string{"id": "my-id"}},
 			serverBody:   "{\"foo\": \"my-id\"}",
 			expectedRes:  &MyHttpResponse{Foo: "my-id"},
 		},
@@ -63,7 +63,7 @@ func TestGet(t *testing.T) {
 					http.NotFoundHandler().ServeHTTP(w, r)
 				}
 			}))
-			res, err := Get[MyHttpResponse](http.DefaultClient, server.URL+tc.path, tc.clientParams)
+			res, err := GetJson[MyHttpResponse](http.DefaultClient, server.URL+tc.path, tc.clientParams)
 			assert.ErrorIs(t, nil, err)
 			assert.Equal(t, tc.expectedRes.Foo, res.Foo)
 		})
