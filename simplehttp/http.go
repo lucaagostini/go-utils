@@ -7,8 +7,8 @@ import (
 )
 
 type HttpParams struct {
-	queryParams map[string]string
-	headers     map[string]string
+	QueryParams map[string]string
+	Headers     map[string]string
 }
 
 func Get[T any](client *http.Client, url string, param HttpParams) (*T, error) {
@@ -17,16 +17,16 @@ func Get[T any](client *http.Client, url string, param HttpParams) (*T, error) {
 		return nil, err
 	}
 	// Set query paramateres
-	if param.queryParams != nil {
+	if param.QueryParams != nil {
 		q := req.URL.Query()
-		for k, v := range param.queryParams {
+		for k, v := range param.QueryParams {
 			q.Add(k, v)
 		}
 		req.URL.RawQuery = q.Encode()
 	}
 	// Set headers
-	if param.headers != nil {
-		for k, v := range param.headers {
+	if param.Headers != nil {
+		for k, v := range param.Headers {
 			req.Header.Add(k, v)
 		}
 	}

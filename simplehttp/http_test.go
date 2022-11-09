@@ -34,7 +34,7 @@ func TestGet(t *testing.T) {
 		{
 			name:         "ok with query param",
 			path:         "/my-query-return-id",
-			clientParams: HttpParams{queryParams: map[string]string{"id": "my-id"}},
+			clientParams: HttpParams{QueryParams: map[string]string{"id": "my-id"}},
 			serverBody:   "{\"foo\": \"my-id\"}",
 			expectedRes:  &MyHttpResponse{Foo: "my-id"},
 		},
